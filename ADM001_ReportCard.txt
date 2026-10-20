@@ -1,0 +1,17 @@
+===== STUDENT REPORT CARD =====
+Name: John
+Admission No: ADM001
+Class: Form 2
+Stream: East
+Term: Term 1
+Year: 2026
+
+----- SUBJECT RESULTS -----
+Mathematics: 92.0 | Position: 2
+English: 84.0 | Position: 2
+Science: 87.0 | Position: 2
+
+----- OVERALL RESULTS -----
+Average: 87.66666666666667
+Grade: A
+Overall Position: 2

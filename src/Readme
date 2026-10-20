@@ -1,0 +1,287 @@
+Student Gradebook and Report Card System
+
+1. Project Overview
+
+The Student Gradebook and Report Card System is a Java application designed to help a school register students and subjects, record assessment marks, calculate academic results, rank students, and generate report cards as text files.
+
+The current demonstration registers three students—John, Mary, and Peter—and three subjects: Mathematics, English, and Science. It records marks for a CAT, an assignment, and an exam for each student in each subject. Each assessment is stored with a term and year so results can be calculated for a particular academic period.
+
+2. Project Objectives
+
+The system demonstrates how to:
+
+Register students and subjects.
+
+Store marks for different assessment types.
+
+Calculate assessment percentages and grades.
+
+Calculate each student's subject totals and overall average.
+
+Rank students by average and determine subject positions.
+
+Keep marks associated with a particular term and year.
+
+Display report cards in the console and save them to .txt files.
+
+Apply object-oriented programming concepts such as abstraction, inheritance, interfaces, and Comparable.
+
+3. Technologies Used
+
+Java — programming language.
+
+Java Collections Framework — List, ArrayList, and Collections.sort() are used to store and sort data.
+
+Java File I/O — FileWriter, PrintWriter, and IOException are used to write report cards to text files.
+
+No external libraries are required for the code described here.
+
+4. Project Structure
+
+The project uses these packages and classes. Java package names are case-sensitive, so keep the spelling and capitalization consistent with the source files.
+
+src/
+├── Main.java
+├── Assessment/
+│   ├── Assessment.java
+│   ├── Cat.java
+│   ├── Assignment.java
+│   └── Exam.java
+├── Classperson/
+│   ├── Person.java
+│   ├── Student.java
+│   └── Teacher.java
+├── Interface/
+│   └── Gradable.java
+├── Model/
+│   ├── Subject.java
+│   └── Mark.java
+└── Service/
+    ├── Gradebook.java
+    └── Reportcard.java
+
+The directory layout above illustrates the packages and classes used in the project. If your IDE displays source files differently, follow the actual package declarations in the files.
+
+5. What Each Class Does
+
+Main.java
+
+Main is the entry point of the application. Its main() method creates the gradebook, a teacher, subjects, and students. It creates CAT, assignment, and exam objects, wraps each assessment in a Mark object, and adds the marks to the gradebook.
+
+At the end, Main prints Mathematics subject positions, creates a Reportcard for Term 1 of 2026, displays John's report, and saves report files for John, Mary, and Peter.
+
+Person.java
+
+Person is an abstract parent class shared by students and teachers. It stores the common name field and provides getName() to retrieve it. The class is abstract because the application uses the more specific Student and Teacher classes.
+
+Student.java
+
+Student extends Person and stores student-specific details:
+
+Admission number
+
+Class name
+
+Stream
+
+Average used for ranking
+
+It provides getters for the student's details and methods to get or set the average. It implements Comparable<Student> so students can be sorted. Its compareTo() method compares averages in descending order, placing a higher average before a lower average.
+
+Teacher.java
+
+Teacher extends Person and adds a teacher ID. It inherits the person's name and provides getTeacherId() to retrieve the teacher ID.
+
+Gradable.java
+
+Gradable is an interface that declares two methods:
+
+calculatePercentage()
+
+calculateGrade()
+
+These methods describe the grading operations an assessment must provide.
+
+Assessment.java
+
+Assessment is an abstract class that implements Gradable. It stores the assessment name, the student's score, and the maximum marks available.
+
+calculatePercentage() calculates:
+
+(score / maxMarks) * 100
+
+calculateGrade() uses the percentage to return a letter grade according to the project's grading scale:
+
+Percentage
+
+Grade
+
+80–100
+
+A
+
+70–below 80
+
+B
+
+60–below 70
+
+C
+
+50–below 60
+
+D
+
+Below 50
+
+F
+
+The implementation assumes that maxMarks is greater than zero.
+
+Cat.java, Assignment.java, and Exam.java
+
+These three classes extend Assessment. Each constructor passes the assessment name, score, and maximum marks to the parent constructor using super(...).
+
+Because Assessment implements Gradable, these subclasses inherit its percentage and grade methods.
+
+Subject.java
+
+Subject represents a school subject. It stores the subject's name, code, associated teacher, and maximum marks. Getters make these details available to other classes.
+
+Mark.java
+
+Mark connects a particular student, subject, and assessment. It also stores the term and year for that mark.
+
+For example, a mark can represent John's Mathematics CAT for Term 1 of 2026. The term and year allow Gradebook to include only marks matching the requested academic period.
+
+Gradebook.java
+
+Gradebook stores lists of students, subjects, and marks. It provides methods to add students, subjects, and marks, and getters to access those lists.
+
+Its main calculations are:
+
+Subject total: adds the scores for a student and subject within the requested term and year.
+
+Average: adds the subject totals and divides by the number of registered subjects.
+
+Grade: assigns a letter grade based on the overall average, using the same thresholds described above.
+
+Student rank: calculates averages for the selected term and year, sorts students using Comparable<Student>, and returns a student's position in the sorted list.
+
+Subject position: compares a student's subject total with the totals of other students for the selected term and year.
+
+The current average calculation counts all registered subjects, including a subject with no marks for the selected period. The demonstration supplies marks for all three subjects for every student.
+
+Reportcard.java
+
+Reportcard receives a Gradebook, a term, and a year in its constructor. It uses those values to generate a report for the selected period.
+
+It can:
+
+Display a student's details, subject totals, subject positions, average, grade, and overall rank in the console.
+
+Write the same type of report to a text file.
+
+The filename includes the admission number, term, and year, for example:
+
+ADM001_Term_1_2026_ReportCard.txt
+
+Including the term and year helps prevent a report from one period overwriting the report from another period.
+
+6. How the Application Works
+
+The general flow is:
+
+Main creates a Gradebook.
+
+A teacher and subjects are created and registered.
+
+Students are created and registered.
+
+CAT, assignment, and exam objects are created for each student and subject.
+
+Each assessment is placed in a Mark object with the student, subject, term, and year.
+
+The marks are added to Gradebook.
+
+Gradebook calculates subject totals, averages, grades, and positions for the requested term and year.
+
+Reportcard displays the results and writes report files.
+
+7. Assessment and Average Formula
+
+In the sample data, each subject uses three assessment types:
+
+CAT: out of 20 marks
+
+Assignment: out of 10 marks
+
+Exam: out of 70 marks
+
+The maximum marks add up to 100. The subject total is therefore calculated by adding the three scores. For example, John's Mathematics total is:
+
+18 + 9 + 65 = 92 out of 100
+
+The overall average is the sum of the student's subject totals divided by the number of registered subjects. With three subjects, John's sample average is:
+
+(92 + 84 + 87) / 3 = 87.67
+
+The overall grade is based on that average. The grade thresholds are a project choice and can be adjusted if the school uses a different grading policy.
+
+8. Term and Year Support
+
+Every Mark stores a term and year, such as "Term 1" and 2026. The calculation methods in Gradebook receive a term and year and filter marks to that period.
+
+To record another period, create assessment and mark objects using the new period values, for example "Term 2" and 2026. When creating a report for that period, pass the same term and year to the Reportcard constructor. Make sure the marks have actually been entered for that period; otherwise, the report will not contain the expected results.
+
+9. Running the Project
+
+Open the project in your Java IDE.
+
+Ensure all source files are in the correct packages and the package names match the package declarations.
+
+Open Main.java.
+
+Run the main() method.
+
+Check the console for Mathematics positions and John's report card.
+
+Check the project's working directory for generated report-card .txt files for John, Mary, and Peter.
+
+The demonstration uses Term 1 of 2026.
+
+10. Object-Oriented Programming Concepts Demonstrated
+
+Abstraction: Person and Assessment are abstract classes that represent common features.
+
+Inheritance: Student and Teacher extend Person; Cat, Assignment, and Exam extend Assessment.
+
+Interfaces: Assessment implements Gradable, providing percentage and grade calculations.
+
+Polymorphism: assessment objects of different subclasses can be handled through the shared Assessment type, such as the assessment reference stored by Mark.
+
+Encapsulation: classes keep their fields private or protected and expose data through constructors and getter methods.
+
+Comparable and sorting: Student implements Comparable<Student>, allowing Collections.sort() to rank students by average.
+
+11. Limitations and Possible Improvements
+
+This is a demonstration application using sample data in code. It does not currently provide a menu, graphical interface, database, or user input for registering students and entering marks at runtime.
+
+Possible future improvements include:
+
+Add input validation, including checking that scores are not negative and do not exceed maximum marks.
+
+Prevent division by zero if an assessment has zero maximum marks.
+
+Add a menu or user interface for entering students, subjects, and marks.
+
+Store records in a database or persistent data file.
+
+Improve handling of subjects for which a student has no marks in a selected period.
+
+Add class statistics, such as the class mean or highest-performing student.
+
+12. Conclusion
+
+The Student Gradebook and Report Card System demonstrates a basic object-oriented Java approach to managing student assessment results. It brings together student and subject records, multiple assessment types, term/year-aware calculations, ranking, and text-file report generation.

@@ -1,0 +1,17 @@
+===== STUDENT REPORT CARD =====
+Name: Peter
+Admission No: ADM003
+Class: Form 2
+Stream: East
+Term: Term 1
+Year: 2026
+
+----- SUBJECT RESULTS -----
+Mathematics: 80.0 | Position: 3
+English: 76.0 | Position: 3
+Science: 78.0 | Position: 3
+
+----- OVERALL RESULTS -----
+Average: 78.0
+Grade: B
+Overall Position: 3

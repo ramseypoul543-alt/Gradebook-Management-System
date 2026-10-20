@@ -1,0 +1,17 @@
+===== STUDENT REPORT CARD =====
+Name: Mary
+Admission No: ADM002
+Class: Form 2
+Stream: East
+Term: Term 1
+Year: 2026
+
+----- SUBJECT RESULTS -----
+Mathematics: 97.0 | Position: 1
+English: 88.0 | Position: 1
+Science: 90.0 | Position: 1
+
+----- OVERALL RESULTS -----
+Average: 91.66666666666667
+Grade: A
+Overall Position: 1
